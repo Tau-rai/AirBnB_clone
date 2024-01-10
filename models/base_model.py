@@ -3,7 +3,7 @@
 """
 from datetime import datetime
 import uuid
-from __init__ import storage
+from . import storage
 
 
 class BaseModel:

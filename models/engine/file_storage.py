@@ -32,8 +32,16 @@ class FileStorage:
     def save(self):
         """Serializes object to the JSON path
         """
+        serialized_objs = {}
+
+        for key, value in self.__objects.items():
+            if hasattr(value, 'to_dict') and callable(getattr(value, 'to_dict')):
+                serialized_objs[key] = value.to_dict()
+            else:
+                serialized_objs[key] = value
+
         with open(self.__file_path, 'w') as f:
-            json.dump({k: v.to_dict() if hasattr(v, 'to_dict') else v for k, v in self.__objects.items()}, f)
+            json.dump(serialized_objs, f)
 
     def reload(self):
         """deserializes the JSON file to __objects
@@ -41,5 +49,3 @@ class FileStorage:
         if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r') as f:
                 self.__objects = json.load(f)
-
-        

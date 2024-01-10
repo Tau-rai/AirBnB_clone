@@ -6,7 +6,7 @@ This module contains the entry point of the command interpreter
 
 import cmd
 import json
-import models.base_model as BaseModel
+from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
 
