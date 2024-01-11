@@ -7,6 +7,7 @@ This module contains the entry point of the command interpreter
 import cmd
 import json
 from models.base_model import BaseModel
+from models.user import User
 from models.engine.file_storage import FileStorage
 
 
@@ -48,10 +49,13 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] != "BaseModel":
+        elif args[0] not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
         else:
-            new_instance = BaseModel()
+            if args[0] == "BaseModel":
+                new_instance = BaseModel()
+            elif args[0] == "User":
+                new_instance = User()
             self.storage.new(new_instance)
             self.storage.save()
             print(new_instance.id)
@@ -63,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] != "BaseModel":
+        elif args[0] not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -81,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] != "BaseModel":
+        elif args[0] not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -97,9 +101,14 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances based or not on class name
         """
         args = line.split()
-        if len(args) == 0 or args[0] == "BaseModel":
+        if len(args) == 0:
             for instance in self.storage.all().values():
                 print(instance.__str__())
+        elif args[0] in ["BaseModel", "User"]:
+            class_name = args[0]
+            for instance in self.storage.all().values():
+                if instance.__class__.__name__ == class_name:
+                    print(instance.__str__())
         else: 
             print("** class doesn't exist **")
 
@@ -109,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] != "BaseModel":
+        elif args[0] not in ["BaseModel", "User"]:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")

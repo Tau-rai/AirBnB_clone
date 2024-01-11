@@ -7,6 +7,8 @@ and deserializes JSON file to instances
 
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -48,4 +50,9 @@ class FileStorage:
         """
         if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r') as f:
-                self.__objects = json.load(f)
+                objects = json.load(f)
+            for key in objects.keys():
+                if objects[key]["__class__"] == "BaseModel":
+                    self.__objects[key] = BaseModel(**objects[key])
+                elif objects[key]["__class__"] == "User":
+                    self.__objects[key] = User(**objects[key])
