@@ -8,6 +8,11 @@ import cmd
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models.engine.file_storage import FileStorage
 
 
@@ -16,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     """
     completekey = "tab"
     prompt = '(hbnb) '
-
+    
     def __init__(self):
         """Tracks the instances of the BaseModel from the Filestorage
         """
@@ -24,6 +29,7 @@ class HBNBCommand(cmd.Cmd):
         self.cmdqueue = []
         self.storage = FileStorage()
         self.storage.reload()  # load existing instances from file
+    v_class = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 
     def do_EOF(self, line):
         """EOF or Ctrl D will exit the program
@@ -37,37 +43,46 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """
-        Does nothing if an empty line is passed to the interprter
+        """Does nothing if an empty line is passed to the interprter
         """
         pass
 
     def do_create(self, line):
+        """Creates an instance of BaseModel, saves it to JSON file and prints the id
         """
-        Creates an instance of BaseModel, saves it to JSON file and prints the id
-        """
+        v_c = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel", "User"]:
+        elif args[0] not in v_c:
             print("** class doesn't exist **")
         else:
             if args[0] == "BaseModel":
                 new_instance = BaseModel()
             elif args[0] == "User":
                 new_instance = User()
+            elif args[0] == "Place":
+                new_instance = Place()
+            elif args[0] == "State":
+                new_instance = State()
+            elif args[0] == "City":
+                new_instance = City()
+            elif args[0] == "Amenity":
+                new_instance = Amenity()
+            elif args[0] == "Review":
+                new_instance = Review()
             self.storage.new(new_instance)
             self.storage.save()
             print(new_instance.id)
 
     def do_show(self, line):
+        """Prints the string representation of an instance
         """
-        Prints the string representation of an instance based on class name and id
-        """
+        v_c = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel", "User"]:
+        elif args[0] not in v_c:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -82,10 +97,11 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Deletes an instance based on class name and id
         """
+        v_c = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel", "User"]:
+        elif args[0] not in v_c:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -98,13 +114,14 @@ class HBNBCommand(cmd.Cmd):
                 self.storage.save()
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on class name
+        """Prints all string representation of all instances
         """
+        v_c = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
         args = line.split()
         if len(args) == 0:
             for instance in self.storage.all().values():
                 print(instance.__str__())
-        elif args[0] in ["BaseModel", "User"]:
+        elif args[0] in v_c:
             class_name = args[0]
             for instance in self.storage.all().values():
                 if instance.__class__.__name__ == class_name:
@@ -115,10 +132,11 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, line):
         """Updates an instance based on the class name and id
         """
+        v_c = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel", "User"]:
+        elif args[0] not in v_c:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -144,6 +162,7 @@ class HBNBCommand(cmd.Cmd):
                     attr_val = str(attr_val)
                 setattr(instance, attr_name, attr_val)
                 self.storage.save()          
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

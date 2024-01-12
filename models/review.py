@@ -4,12 +4,14 @@ This modele contains a class that inherits from the BaseModel class
 """
 
 
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class Review(BaseModel):
     """A class that inherits from the BaseModel class
     """
-    place_id = ''
-    user_id = ''
-    text = ''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.place_id = ''
+        self.user_id = ''
+        self.text = ''

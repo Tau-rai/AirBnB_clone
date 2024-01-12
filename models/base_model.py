@@ -5,7 +5,6 @@ from datetime import datetime
 import uuid
 
 
-
 class BaseModel:
     """
     class that defines all common attribute/methods for other classes
