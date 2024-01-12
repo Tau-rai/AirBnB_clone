@@ -29,8 +29,7 @@ class HBNBCommand(cmd.Cmd):
         self.cmdqueue = []
         self.storage = FileStorage()
         self.storage.reload()  # load existing instances from file
-    v_class = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
-
+    
     def do_EOF(self, line):
         """EOF or Ctrl D will exit the program
         """
@@ -161,7 +160,21 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     attr_val = str(attr_val)
                 setattr(instance, attr_name, attr_val)
-                self.storage.save()          
+                self.storage.save()
+
+    def default(self, line):
+        """Retrieves all instances of a class by using: <classname>.all()
+
+        Args:
+            line (str): command line input
+        """
+        args = line.split('.')
+        if len(args) == 2:
+            class_name = args[0]
+            command = args[1]
+            if command == "all()":
+                self.do_all(class_name)
+                 
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-This module contains the FileStorage class that serializes instances to a JSON file
-and deserializes JSON file to instances
+This module contains the FileStorage class that serializes instances to a JSON
+file and deserializes JSON file to instances
 """
 
 
@@ -29,13 +29,13 @@ class FileStorage:
         """Returns the dict __objects
         """
         return self.__objects
-    
+
     def new(self, obj):
         """sets obejcts with th key id
         """
         key = obj.__class__.__name__ + "." + obj.id
         self.__objects[key] = obj
-    
+
     def save(self):
         """Serializes object to the JSON path
         """

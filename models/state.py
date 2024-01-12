@@ -12,4 +12,7 @@ class State(BaseModel):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.name = ''
+        if kwargs:
+            self.name = kwargs.get('name', "")
+        else:
+            self.name = ''
