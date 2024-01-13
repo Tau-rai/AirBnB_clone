@@ -130,8 +130,7 @@ class HBNBCommand(cmd.Cmd):
                                 if attr_name not in ["id", "created_at", "updated_at"]:
                                     setattr(objects[key], attr_name, attr_value)
                                     objects[key].save()
-                                else:
-                                    print("** can't update id, created_at, or updated_at **")
+                                
                             except (NameError, SyntaxError):
                                 print("** value missing **")
                         else:
