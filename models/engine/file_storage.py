@@ -42,7 +42,8 @@ class FileStorage:
         serialized_objs = {}
 
         for key, value in self.__objects.items():
-            if hasattr(value, 'to_dict') and callable(getattr(value, 'to_dict')):
+            if hasattr(value, 'to_dict')\
+                 and callable(getattr(value, 'to_dict')):
                 serialized_objs[key] = value.to_dict()
             else:
                 serialized_objs[key] = value

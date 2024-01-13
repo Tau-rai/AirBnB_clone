@@ -6,6 +6,7 @@ This module contains the entry point of the command interpreter
 
 import cmd
 import json
+import inspect
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -21,8 +22,8 @@ class HBNBCommand(cmd.Cmd):
     """
     completekey = "tab"
     prompt = '(hbnb) '
-    v_classes = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
-    
+    v_cl = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
+
     def __init__(self):
         """Tracks the instances of the BaseModel from the Filestorage
         """
@@ -30,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         self.cmdqueue = []
         self.storage = FileStorage()
         self.storage.reload()  # load existing instances from file
-    
+
     def do_EOF(self, line):
         """EOF or Ctrl D will exit the program
         """
@@ -48,12 +49,12 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, line):
-        """Creates an instance of BaseModel, saves it to JSON file and prints the id
+        """Creates an instance of BaseModel and saves it to JSON file
         """
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in self.v_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         else:
             if args[0] == "BaseModel":
@@ -80,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.v_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -98,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.v_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -117,12 +118,12 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             for instance in self.storage.all().values():
                 print(instance.__str__())
-        elif args[0] in self.v_classes:
+        elif args[0] in self.v_cl:
             class_name = args[0]
             for instance in self.storage.all().values():
                 if instance.__class__.__name__ == class_name:
                     print(instance.__str__())
-        else: 
+        else:
             print("** class doesn't exist **")
 
     def do_update(self, line):
@@ -131,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.v_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -169,7 +170,20 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             command = args[1]
             if command == "all()":
-                self.do_all(class_name)                 
+                self.do_all(class_name)
+
+    def do_count(self, line):
+        """Retrieves the number of instances of a class
+        Args:
+            line (str): command line input
+        """
+        class_name = line.split('.')[0]
+        class_obj = getattr(__builtins__, class_name, None)
+
+        if class_obj is not None and inspect.isclass(class_obj):
+            instances = self.storage.all().values()
+            count = sum(isinstance(obj, class_obj) for obj in instances)
+            print(f'count of {class_name} insatnces: {count}')
 
 
 if __name__ == '__main__':
