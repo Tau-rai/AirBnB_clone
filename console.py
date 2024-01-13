@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-# console.py
 import cmd
 import shlex
 from models.base_model import BaseModel
