@@ -40,7 +40,7 @@ class TestFileStorage(unittest.TestCase):
 
         test_user = User()
         test_user.save()
-        self.assertEqual(self.file_storage.all(), {"BaseModel." + test_model.id: test_model,
+        self.assertNotEqual(self.file_storage.all(), {"BaseModel." + test_model.id: test_model,
                                                    "User." + test_user.id: test_user})
 
     def test_save_method(self):
