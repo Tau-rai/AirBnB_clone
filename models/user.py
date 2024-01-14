@@ -1,25 +1,20 @@
 #!/usr/bin/python3
-"""
-This module contains a class that inherits from BaseModel
-"""
-
+"""This module defines a class User that represents a user entity."""
 
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
     """
-    User class that inherits from BaseModel
+    User class represents the user.
+
+    Attributes:
+        email (str): Email address of the user.
+        password (str): Password associated with the user's account.
+        first_name (str): First name of the user.
+        last_name (str): Last name of the user.
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if kwargs:
-            self.email = kwargs.get('email', "")
-            self.password = kwargs.get('password', "")
-            self.first_name = kwargs.get('first_name', "")
-            self.last_name = kwargs.get('last_name', "")
-        else:
-            self.email = ""
-            self.password = ""
-            self.first_name = ""
-            self.last_name = ""
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
