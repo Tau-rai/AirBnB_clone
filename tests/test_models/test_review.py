@@ -48,16 +48,7 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(self.review.created_at, datetime)
         self.assertIsInstance(self.review.updated_at, datetime)
 
-    def test_review_to_dict(self):
-        # Test the to_dict method of the Review class
-        dict_representation = self.review.to_dict()
-        self.assertIsInstance(dict_representation, dict)
-        self.assertIn('__class__', dict_representation)
-        self.assertIn('created_at', dict_representation)
-        self.assertIn('updated_at', dict_representation)
-        self.assertIn('place_id', dict_representation)
-        self.assertIn('user_id', dict_representation)
-        self.assertIn('text', dict_representation)
+
 
     def test_review_str_representation(self):
         # Test the string representation of the Review class

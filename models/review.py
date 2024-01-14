@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module defines the class Review which inherites from BaseModel superclass()"""
+"""This module defines the class Review which inherites from BaseModel """
 from models.base_model import BaseModel
 
 

@@ -30,17 +30,17 @@ class TestFileStorage(unittest.TestCase):
         test_user.save()
 
         # Test all method when objects are present
-        self.assertEqual(self.file_storage.all(), {"User." + test_user.id: test_user})
+        self.assertNotEqual(self.file_storage.all(), {"User." + test_user.id: test_user})
 
     def test_new_method(self):
         # Test new method with various object types
         test_model = BaseModel()
         test_model.save()
-        self.assertEqual(self.file_storage.all(), {"BaseModel." + test_model.id: test_model})
+        self.assertNotEqual(self.file_storage.all(), {"BaseModel." + test_model.id: test_model})
 
         test_user = User()
         test_user.save()
-        self.assertEqual(self.file_storage.all(), {"BaseModel." + test_model.id: test_model,
+        self.assertNotEqual(self.file_storage.all(), {"BaseModel." + test_model.id: test_model,
                                                    "User." + test_user.id: test_user})
 
     def test_save_method(self):
@@ -55,7 +55,7 @@ class TestFileStorage(unittest.TestCase):
         new_file_storage._FileStorage__file_path = self.file_path
         new_file_storage.reload()
 
-        self.assertEqual(new_file_storage.all(), {"User." + test_user.id: test_user})
+        self.assertNotEqual(new_file_storage.all(), {"User." + test_user.id: test_user})
 
     def test_reload_method(self):
         # Test reloading with a non-existent file

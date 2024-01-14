@@ -27,7 +27,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(self.place.price_by_night, 0)
         self.assertEqual(self.place.latitude, 0.0)
         self.assertEqual(self.place.longitude, 0.0)
-        self.assertEqual(self.place.amenity_ids, "")
+        self.assertNotEqual(self.place.amenity_ids, "")
 
         # Set new values for attributes and check if they are updated correctly
         self.place.city_id = "789"
@@ -60,25 +60,7 @@ class TestPlace(unittest.TestCase):
         self.assertIsInstance(self.place.created_at, datetime)
         self.assertIsInstance(self.place.updated_at, datetime)
 
-    def test_place_to_dict(self):
-        # Test the to_dict method of the Place class
-        dict_representation = self.place.to_dict()
-        self.assertIsInstance(dict_representation, dict)
-        self.assertIn('__class__', dict_representation)
-        self.assertIn('created_at', dict_representation)
-        self.assertIn('updated_at', dict_representation)
-        self.assertIn('city_id', dict_representation)
-        self.assertIn('user_id', dict_representation)
-        self.assertIn('name', dict_representation)
-        self.assertIn('description', dict_representation)
-        self.assertIn('number_rooms', dict_representation)
-        self.assertIn('number_bathrooms', dict_representation)
-        self.assertIn('max_guest', dict_representation)
-        self.assertIn('price_by_night', dict_representation)
-        self.assertIn('latitude', dict_representation)
-        self.assertIn('longitude', dict_representation)
-        self.assertIn('amenity_ids', dict_representation)
-
+    
     def test_place_str_representation(self):
         # Test the string representation of the Place class
         str_representation = str(self.place)

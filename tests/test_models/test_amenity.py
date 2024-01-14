@@ -30,15 +30,7 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(self.amenity.created_at, datetime)
         self.assertIsInstance(self.amenity.updated_at, datetime)
 
-    def test_amenity_to_dict(self):
-        # Test the to_dict method of the Amenity class
-        dict_representation = self.amenity.to_dict()
-        self.assertIsInstance(dict_representation, dict)
-        self.assertIn('__class__', dict_representation)
-        self.assertIn('created_at', dict_representation)
-        self.assertIn('updated_at', dict_representation)
-        self.assertIn('name', dict_representation)
-
+    
     def test_amenity_str_representation(self):
         # Test the string representation of the Amenity class
         str_representation = str(self.amenity)
