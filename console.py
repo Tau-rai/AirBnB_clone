@@ -27,18 +27,18 @@ class HBNBCommand(cmd.Cmd):
         self.storage.reload() 
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel and saves it to a JSON file, then prints the id.
+        """Creates a new instance of a specified class and saves it to a JSON file, then prints the id.
 
         Usage: create <class name>
         """
         args = shlex.split(arg)
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.valid_classes:
+        elif args[0] not in self.supported_classes:
             print("** class doesn't exist **")
         else:
             try:
-                new_instance = eval(args[0])()
+                new_instance = globals()[args[0]]()
                 new_instance.save()
                 print(new_instance.id)
             except NameError:
@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.valid_classes:
+        elif args[0] not in self.supported_classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -70,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.valid_classes:
+        elif args[0] not in self.supported_classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -85,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
                     self.storage.save()
                 else:
                     print("** no instance found **")
-            except IndexError:
+            except Exception:
                 print("** instance id missing **")
 
     def do_all(self, arg):
@@ -98,7 +98,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not args:
             print([str(obj) for obj in objects.values()])
-        elif args[0] not in self.valid_classes:
+        elif args[0] not in self.supported_classes:
             print("** class doesn't exist **")
         else:
             class_name = args[0]
