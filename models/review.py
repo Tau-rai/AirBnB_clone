@@ -1,23 +1,17 @@
 #!/usr/bin/python3
-"""
-This modele contains a class that inherits from the BaseModel class
-"""
-
-
+"""This module defines the class Review which inherites from BaseModel superclass()"""
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """A class that inherits from the BaseModel class
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if kwargs:
-            self.place_id = kwargs.get('place_id', "")
-            self.user_id = kwargs.get('user_id', "")
-            self.text = kwargs.get('text', "")
-        else:
+    Review class represents the review given by client
 
-            self.place_id = ''
-            self.user_id = ''
-            self.text = ''
+    Attributes:
+        place_id: string - empty string: it will be the Place.id
+        user_id: string - empty string: it will be the User.id
+        text: string - empty string
+    """
+    place_id = ""
+    user_id = ""
+    text = ""
