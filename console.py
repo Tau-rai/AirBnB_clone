@@ -173,6 +173,14 @@ class HBNBCommand(cmd.Cmd):
                     if obj.__class__.__name__ == class_name:
                         count += 1
                 print(count)
+            elif "show(" in command and ")" in command:
+                # extract id from the command
+                id = command[5:-1]
+                key = class_name + "." + id
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
 
 
 if __name__ == '__main__':
