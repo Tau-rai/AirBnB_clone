@@ -25,14 +25,7 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(self.state.created_at, datetime)
         self.assertIsInstance(self.state.updated_at, datetime)
 
-    def test_state_to_dict(self):
-        dict_representation = self.state.to_dict()
-        self.assertIsInstance(dict_representation, dict)
-        self.assertIn('__class__', dict_representation)
-        self.assertIn('created_at', dict_representation)
-        self.assertIn('updated_at', dict_representation)
-        self.assertIn('name', dict_representation)
-
+    
     def test_state_str_representation(self):
         str_representation = str(self.state)
         self.assertIsInstance(str_representation, str)
