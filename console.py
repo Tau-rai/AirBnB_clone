@@ -18,14 +18,6 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     supported_classes = ["User", "State", "City", "Amenity", "Place", "Review", "BaseModel"]
 
-    def __init__(self):
-        """Tracks the instances of the BaseModel from the Filestorage
-        """
-        super(HBNBCommand, self).__init__()
-        self.cmdqueue = []
-        self.storage = FileStorage()
-        self.storage.reload() 
-
     def do_create(self, arg):
         """Creates a new instance of a specified class and saves it to a JSON file, then prints the id.
 
@@ -56,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             key = args[0] + "." + args[1]
-            instance = self.storage.all().get(key)
+            instance = FileStorage().all().get(key)
             if instance is None:
                 print("** no instance found **")
             else:
@@ -79,10 +71,10 @@ class HBNBCommand(cmd.Cmd):
                 cls_name = args[0]
                 instance_id = args[1]
                 key = "{}.{}".format(cls_name, instance_id)
-                objects = self.storage.all()
+                objects = FileStorage().all()
                 if key in objects:
                     del objects[key]
-                    self.storage.save()
+                    FileStorage().save()
                 else:
                     print("** no instance found **")
             except Exception:
@@ -94,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: all [<class name>]
         """
         args = shlex.split(arg)
-        objects = self.storage.all()
+        objects = FileStorage().all()
 
         if not args:
             print([str(obj) for obj in objects.values()])
@@ -120,10 +112,10 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             key = args[0] + "." + args[1]
-            if key not in self.storage.all():
+            if key not in FileStorage().all():
                 print("** no instance found **")
             else:
-                instance = self.storage.all()[key]
+                instance = FileStorage().all()[key]
                 attr_name = args[2]
                 attr_val = args[3]
 
@@ -135,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     attr_val = str(attr_val)
                 setattr(instance, attr_name, attr_val)
-                self.storage.save()
+                FileStorage().save()
 
     def emptyline(self):
         """Overrides repeating the last nonempty command after an empty line is entered"""
