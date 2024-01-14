@@ -1,20 +1,15 @@
 #!/usr/bin/python3
-"""
-This modele contains a class that inherits from the BaseModel class
-"""
-
-
+"""This module defines the City class which represents city instances """
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """A class that inherits from the BaseModel class
     """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if kwargs:
-            self.state_id = kwargs.get('state_id', "")
-            self.name = kwargs.get('name', "")
-        else:
-            self.state_id = ''
-            self.name = ''
+    City class represents a specific city
+
+    Attributes:
+        state_id: string - empty string: it will be the State.id
+        name: string - empty string
+    """
+    state_id = ""
+    name = ""
