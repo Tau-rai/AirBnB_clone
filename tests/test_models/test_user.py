@@ -1,6 +1,7 @@
 import unittest
 from models.user import User
 from datetime import datetime
+import datetime 
 
 
 class TestUser(unittest.TestCase):
