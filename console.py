@@ -18,10 +18,6 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     supported_classes = ["User", "State", "City", "Amenity", "Place", "Review", "BaseModel"]
 
-    def emptyline(self):
-        """Overrides repeating the last nonempty command after an empty line is entered"""
-        pass
-
     def do_quit(self, arg):
         """Exits the command interpreter"""
         print()
@@ -29,10 +25,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """Exits the command interpreter when an EOF condition is passed"""
+        print()
         return True
     
+    def emptyline(self):
+        """Overrides repeating the last nonempty command"""
+        pass
+    
     def do_create(self, arg):
-        """Creates a new instance of a specified class and saves it to a JSON file, then prints the id.
+        """Creates a new instance of a specified class\
+            and saves it to a JSON file, then prints the id.
 
         Usage: create <class name>
         """
@@ -141,6 +143,19 @@ class HBNBCommand(cmd.Cmd):
                     attr_val = str(attr_val)
                 setattr(instance, attr_name, attr_val)
                 FileStorage().save()
+    
+    def default(self, line):
+        """Retrieves all instances of a class by using: <classname>.all()
+
+        Args:
+            line (str): command line input
+        """
+        args = line.split('.')
+        if len(args) == 2:
+            class_name = args[0]
+            command = args[1]
+            if command == "all()":
+                self.do_all(class_name)
 
 
 if __name__ == '__main__':
