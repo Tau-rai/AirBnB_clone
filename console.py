@@ -18,6 +18,19 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     supported_classes = ["User", "State", "City", "Amenity", "Place", "Review", "BaseModel"]
 
+    def emptyline(self):
+        """Overrides repeating the last nonempty command after an empty line is entered"""
+        pass
+
+    def do_quit(self, arg):
+        """Exits the command interpreter"""
+        print()
+        return True
+
+    def do_EOF(self, arg):
+        """Exits the command interpreter when an EOF condition is passed"""
+        return True
+    
     def do_create(self, arg):
         """Creates a new instance of a specified class and saves it to a JSON file, then prints the id.
 
@@ -129,20 +142,6 @@ class HBNBCommand(cmd.Cmd):
                 setattr(instance, attr_name, attr_val)
                 FileStorage().save()
 
-    def emptyline(self):
-        """Overrides repeating the last nonempty command after an empty line is entered"""
-        pass
-
-    def default(self, line):
-        print("*** Unknown syntax: {}".format(line))
-
-    def do_quit(self, arg):
-        """Exits the command interpreter"""
-        return True
-
-    def do_EOF(self, arg):
-        """Exits the command interpreter when an EOF condition is passed"""
-        return True
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
