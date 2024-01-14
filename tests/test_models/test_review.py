@@ -48,8 +48,6 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(self.review.created_at, datetime)
         self.assertIsInstance(self.review.updated_at, datetime)
 
-
-
     def test_review_str_representation(self):
         # Test the string representation of the Review class
         str_representation = str(self.review)
@@ -59,4 +57,3 @@ class TestReview(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

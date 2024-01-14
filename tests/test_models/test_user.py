@@ -1,8 +1,7 @@
-
-
 import unittest
 from models.user import User
 from datetime import datetime
+
 
 class TestUser(unittest.TestCase):
 
@@ -11,14 +10,14 @@ class TestUser(unittest.TestCase):
         Set up a sample user instance for testing.
         """
         self.sample_user = User(
-            email="test@example.com",
-            password="securepassword",
-            first_name="John",
-            last_name="Doe"
-        )
+                email="test@example.com",
+                password="securepassword",
+                first_name="John",
+                last_name="Doe"
+                )
 
-    def test_initialization(self):
-        """
+        def test_initialization(self):
+            """
         Test if the instance is initialized properly.
         """
         self.assertIsInstance(self.sample_user, User)
@@ -43,19 +42,25 @@ class TestUser(unittest.TestCase):
         self.assertEqual(default_user.last_name, "")
 
     def test_check_type(self):
+        """Test for the type of the class attributes"""
         self.assertEqual(type(self.sample_user.id), str)
         self.assertEqual(type(self.sample_user.created_at), datetime)
         self.assertEqual(type(self.sample_user.updated_at), datetime)
 
     def test_str_representation(self):
-        expected = "[User] ({}) {}".format(self.sample_user.id, self.sample_user.__dict__)
+        """Tests for string representation"""
+        user = self.sample_user.id, self.sample_user.__dict_
+        expected = "[User] ({}) {}".format(user)
         self.assertEqual(str(self.sample_user), expected)
 
     def test_save(self):
+        """Test the save method on User class"""
         self.sample_user.save()
-        self.assertNotEqual(self.sample_user.created_at, self.sample_user.updated_at)
+        updated = self.sample_user.updated_at
+        self.assertNotEqual(self.sample_user.created_at, updated)
 
     def test_to_dict(self):
+        """Tests the to_ct method on User class"""
         user_dict = self.sample_user.to_dict()
         self.assertEqual(type(user_dict), dict)
         self.assertTrue('id' in user_dict)
@@ -63,6 +68,6 @@ class TestUser(unittest.TestCase):
         self.assertTrue('updated_at' in user_dict)
         self.assertEqual(user_dict['__class__'], 'User')
 
+
 if __name__ == '__main__':
     unittest.main()
-

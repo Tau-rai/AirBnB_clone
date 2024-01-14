@@ -30,7 +30,6 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(self.amenity.created_at, datetime)
         self.assertIsInstance(self.amenity.updated_at, datetime)
 
-    
     def test_amenity_str_representation(self):
         # Test the string representation of the Amenity class
         str_representation = str(self.amenity)
@@ -40,4 +39,3 @@ class TestAmenity(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

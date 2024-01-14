@@ -3,13 +3,14 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
+
 class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         self.storage = FileStorage()
 
     def tearDown(self):
-        # Clean up 
+        # Clean up
         if os.path.exists(self.storage._FileStorage__file_path):
             os.remove(self.storage._FileStorage__file_path)
 
@@ -27,7 +28,8 @@ class TestFileStorage(unittest.TestCase):
     def test_new(self):
         obj = BaseModel()
         self.storage.new(obj)
-        self.assertIn('BaseModel.' + obj.id, self.storage._FileStorage__objects)
+        store = self.storage._FileStorage__objects
+        self.assertIn('BaseModel.' + obj.id, store)
 
     def test_save(self):
         obj = BaseModel()
@@ -55,6 +57,7 @@ class TestFileStorage(unittest.TestCase):
         new_storage.reload()
 
         self.assertDictEqual(new_storage.all(), {'BaseModel.' + obj.id: obj})
+
 
 if __name__ == '__main__':
     unittest.main()

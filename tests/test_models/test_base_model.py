@@ -3,6 +3,7 @@ from datetime import datetime
 from models.base_model import BaseModel
 from models import storage
 
+
 class TestBaseModel(unittest.TestCase):
     def setUp(self):
         # Set up any necessary resources or instances needed for tests
@@ -174,6 +175,6 @@ class TestBaseModel(unittest.TestCase):
         for key in my_model_json.keys():
             print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
 
+
 if __name__ == '__main__':
     unittest.main()
-

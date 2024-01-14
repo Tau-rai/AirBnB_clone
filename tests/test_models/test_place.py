@@ -60,7 +60,6 @@ class TestPlace(unittest.TestCase):
         self.assertIsInstance(self.place.created_at, datetime)
         self.assertIsInstance(self.place.updated_at, datetime)
 
-    
     def test_place_str_representation(self):
         # Test the string representation of the Place class
         str_representation = str(self.place)
@@ -70,4 +69,3 @@ class TestPlace(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

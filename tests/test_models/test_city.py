@@ -33,7 +33,6 @@ class TestCity(unittest.TestCase):
         self.assertIsInstance(self.city.created_at, datetime)
         self.assertIsInstance(self.city.updated_at, datetime)
 
-    
     def test_city_str_representation(self):
         # Test the string representation of the City class
         str_representation = str(self.city)
@@ -43,4 +42,3 @@ class TestCity(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

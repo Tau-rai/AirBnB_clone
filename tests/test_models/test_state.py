@@ -25,13 +25,11 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(self.state.created_at, datetime)
         self.assertIsInstance(self.state.updated_at, datetime)
 
-    
     def test_state_str_representation(self):
         str_representation = str(self.state)
         self.assertIsInstance(str_representation, str)
         self.assertIn(self.state.id, str_representation)
-        
+
 
 if __name__ == '__main__':
     unittest.main()
-
