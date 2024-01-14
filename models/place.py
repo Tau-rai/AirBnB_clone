@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module defines Place class which represents a place and its entities """
+""" A Place class which represents a place and its entities """
 from models.base_model import BaseModel
 
 
