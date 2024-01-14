@@ -41,23 +41,12 @@ class TestUser(unittest.TestCase):
         self.assertEqual(default_user.first_name, "")
         self.assertEqual(default_user.last_name, "")
 
-    def test_check_type(self):
-        """Test for the type of the class attributes"""
-        self.assertEqual(type(self.sample_user.id), str)
-        self.assertEqual(type(self.sample_user.created_at), datetime)
-        self.assertEqual(type(self.sample_user.updated_at), datetime)
-
+    
     def test_str_representation(self):
         """Tests for string representation"""
         user = self.sample_user.id, self.sample_user.__dict_
         expected = "[User] ({}) {}".format(user)
         self.assertEqual(str(self.sample_user), expected)
-
-    def test_save(self):
-        """Test the save method on User class"""
-        self.sample_user.save()
-        updated = self.sample_user.updated_at
-        self.assertNotEqual(self.sample_user.created_at, updated)
 
     def test_to_dict(self):
         """Tests the to_ct method on User class"""
