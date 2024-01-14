@@ -1,6 +1,5 @@
 import unittest
 from models.user import User
-from datetime
 from datetime import datetime
 
 
