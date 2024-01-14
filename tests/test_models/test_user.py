@@ -19,9 +19,8 @@ class TestUser(unittest.TestCase):
             updated_at=datetime(2022, 1, 2, 12, 0, 0)
         )
 
-
-        def test_initialization(self):
-            """
+    def test_initialization(self):
+        """
         Test if the instance is initialized properly.
         """
         self.assertIsInstance(self.sample_user, User)
@@ -45,15 +44,13 @@ class TestUser(unittest.TestCase):
         self.assertEqual(default_user.first_name, "")
         self.assertEqual(default_user.last_name, "")
 
-    
     def test_str_representation(self):
         """Tests for string representation"""
-        user = self.sample_user.id, self.sample_user.__dict_
-        expected = "[User] ({}) {}".format(user)
+        expected = "[User] ({}) {}".format(self.sample_user.id, self.sample_user.__dict__)
         self.assertEqual(str(self.sample_user), expected)
 
     def test_to_dict(self):
-        """Tests the to_ct method on User class"""
+        """Tests the to_dict method on User class"""
         user_dict = self.sample_user.to_dict()
         self.assertEqual(type(user_dict), dict)
         self.assertTrue('id' in user_dict)
