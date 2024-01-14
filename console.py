@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+This module contains the entry point of the command interpreter
+"""
+
 
 import cmd
 import shlex
@@ -16,20 +20,22 @@ class HBNBCommand(cmd.Cmd):
     """Command interpreter class"""
 
     prompt = "(hbnb) "
-    supported_classes = ["User", "State", "City", "Amenity", "Place", "Review", "BaseModel"]
+    v_cl = ["User", "State", "City", "Amenity", "Place", "Review", "BaseModel"]
 
-    def do_quit(self, arg):
-        """Exits the command interpreter"""
+    def do_EOF(self, line):
+        """EOF or Ctrl D will exit the program
+        """
         print()
         return True
 
-    def do_EOF(self, arg):
-        """Exits the command interpreter when an EOF condition is passed"""
-        print()
+    def do_quit(self, line):
+        """Quit command to exit the program
+        """
         return True
-    
+
     def emptyline(self):
-        """Overrides repeating the last nonempty command"""
+        """Does nothing if an empty line is passed to the interprter
+        """
         pass
     
     def do_create(self, arg):
@@ -41,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.supported_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         else:
             try:
@@ -57,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.supported_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -77,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.supported_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -105,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not args:
             print([str(obj) for obj in objects.values()])
-        elif args[0] not in self.supported_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         else:
             class_name = args[0]
@@ -117,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.supported_classes:
+        elif args[0] not in self.v_cl:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -145,10 +151,9 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
     
     def default(self, line):
-        """Retrieves all instances of a class by using: <classname>.all()
+        """Retrieves all instances of a class
 
-        Args:
-            line (str): command line input
+        Usage: <classname>.all()
         """
         args = line.split('.')
         if len(args) == 2:
