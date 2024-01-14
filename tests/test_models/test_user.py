@@ -10,11 +10,14 @@ class TestUser(unittest.TestCase):
         Set up a sample user instance for testing.
         """
         self.sample_user = User(
-                email="test@example.com",
-                password="securepassword",
-                first_name="John",
-                last_name="Doe"
-                )
+            email="test@example.com",
+            password="securepassword",
+            first_name="John",
+            last_name="Doe",
+            created_at=datetime(2022, 1, 1, 12, 0, 0),
+            updated_at=datetime(2022, 1, 2, 12, 0, 0)
+        )
+
 
         def test_initialization(self):
             """
