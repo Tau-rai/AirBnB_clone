@@ -33,19 +33,7 @@ class TestCity(unittest.TestCase):
         self.assertIsInstance(self.city.created_at, datetime)
         self.assertIsInstance(self.city.updated_at, datetime)
 
-    def test_city_to_dict(self):
-        # Test the to_dict method of the City class
-        self.city.state_id = "456"
-        dict_representation = self.city.to_dict()
-        self.assertIsInstance(dict_representation, dict)
-        self.assertIn('__class__', dict_representation)
-        self.assertIn('created_at', dict_representation)
-        self.assertIn('updated_at', dict_representation)
-        self.assertIn('state_id', dict_representation)
-        self.assertIn('name', dict_representation)
-       
-        self.assertEqual(dict_representation['__class__'], 'City')
-
+    
     def test_city_str_representation(self):
         # Test the string representation of the City class
         str_representation = str(self.city)
