@@ -34,17 +34,17 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """Does nothing if an empty line is passed to the interprter
+        """Does nothing if an empty line is passed to the interpreter
         """
         pass
 
-    def do_create(self, arg):
+    def do_create(self, line):
         """Creates a new instance of a specified class\
                 and saves it to a JSON file, then prints the id.
 
         Usage: create <class name>
         """
-        args = shlex.split(arg)
+        args = shlex.split(line)
         if not args:
             print("** class name missing **")
         elif args[0] not in self.v_cl:
@@ -75,13 +75,13 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(instance.__str__())
 
-    def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id.
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id.\
             The change is saved into the JSON file.
 
         Usage: destroy <class name> <id>
         """
-        args = shlex.split(arg)
+        args = shlex.split(line)
         if not args:
             print("** class name missing **")
         elif args[0] not in self.v_cl:
@@ -102,13 +102,13 @@ class HBNBCommand(cmd.Cmd):
             except Exception:
                 print("** instance id missing **")
 
-    def do_all(self, arg):
+    def do_all(self, line):
         """Prints all string representation of all instances based\
                 or not on the class name.
 
         Usage: all [<class name>]
         """
-        args = shlex.split(arg)
+        args = shlex.split(line)
         objects = storage.all()
 
         if not args:
@@ -181,6 +181,14 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                 else:
                     print(storage.all()[key])
+            elif "destroy(" in command and ")" in command:
+                # extract id from the command
+                id = command[8:-1]
+                key = class_name + "." + id
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    del storage.all()[key]
 
 
 if __name__ == '__main__':
