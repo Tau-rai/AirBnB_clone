@@ -10,7 +10,7 @@ class TestUser(unittest.TestCase):
         Set up a sample user instance for testing.
         """
         self.sample_user = User(
-            id="unique_id"
+            id="unique_id",
             email="test@example.com",
             password="securepassword",
             first_name="John",
