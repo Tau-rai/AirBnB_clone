@@ -1,5 +1,6 @@
 import unittest
 from models.user import User
+from datetime
 from datetime import datetime
 
 
@@ -13,9 +14,10 @@ class TestUser(unittest.TestCase):
             email="test@example.com",
             password="securepassword",
             first_name="John",
-            last_name="Doe",
-            created_at=datetime(2022, 1, 1, 12, 0, 0),
-            updated_at=datetime(2022, 1, 2, 12, 0, 0),
+            last_name="Doe",created_at=datetime.datetime.strptime("2022-01-01 12:00:00", "%Y-%m-%d %H:%M:%S"),
+            updated_at=datetime.datetime.strptime("2022-01-02 12:00:00", "%Y-%m-%d %H:%M:%S")
+        )
+            
             id="unique_id"
         )
 
