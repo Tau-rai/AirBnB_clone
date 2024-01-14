@@ -37,10 +37,10 @@ class HBNBCommand(cmd.Cmd):
         """Does nothing if an empty line is passed to the interprter
         """
         pass
-    
+
     def do_create(self, arg):
         """Creates a new instance of a specified class\
-            and saves it to a JSON file, then prints the id.
+                and saves it to a JSON file, then prints the id.
 
         Usage: create <class name>
         """
@@ -76,7 +76,8 @@ class HBNBCommand(cmd.Cmd):
                 print(instance.__str__())
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id. The change is saved into the JSON file.
+        """Deletes an instance based on the class name and id.
+            The change is saved into the JSON file.
 
         Usage: destroy <class name> <id>
         """
@@ -102,7 +103,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name.
+        """Prints all string representation of all instances based\
+                or not on the class name.
 
         Usage: all [<class name>]
         """
@@ -115,7 +117,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             class_name = args[0]
-            print([str(obj) for key, obj in objects.items() if key.startswith(class_name)])
+            output = []
+            for key, obj in objects.items():
+                if key.startswith(class_name):
+                    output.append(str(obj))
+            print(output)
 
     def do_update(self, line):
         """Updates an instance based on the class name and id
@@ -149,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
                     attr_val = str(attr_val)
                 setattr(instance, attr_name, attr_val)
                 storage.save()
-    
+
     def default(self, line):
         """Retrieves all instances of a class
 
