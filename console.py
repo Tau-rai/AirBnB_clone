@@ -3,7 +3,7 @@
 import cmd
 import shlex
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+from models import storage
 from models.user import User
 from models.state import State
 from models.city import City
@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             key = args[0] + "." + args[1]
-            instance = FileStorage().all().get(key)
+            instance = storage.all().get(key)
             if instance is None:
                 print("** no instance found **")
             else:
@@ -86,10 +86,10 @@ class HBNBCommand(cmd.Cmd):
                 cls_name = args[0]
                 instance_id = args[1]
                 key = "{}.{}".format(cls_name, instance_id)
-                objects = FileStorage().all()
+                objects = storage.all()
                 if key in objects:
                     del objects[key]
-                    FileStorage().save()
+                    storage.save()
                 else:
                     print("** no instance found **")
             except Exception:
@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: all [<class name>]
         """
         args = shlex.split(arg)
-        objects = FileStorage().all()
+        objects = storage.all()
 
         if not args:
             print([str(obj) for obj in objects.values()])
@@ -127,10 +127,10 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             key = args[0] + "." + args[1]
-            if key not in FileStorage().all():
+            if key not in storage.all():
                 print("** no instance found **")
             else:
-                instance = FileStorage().all()[key]
+                instance = storage.all()[key]
                 attr_name = args[2]
                 attr_val = args[3]
 
@@ -142,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     attr_val = str(attr_val)
                 setattr(instance, attr_name, attr_val)
-                FileStorage().save()
+                storage.save()
     
     def default(self, line):
         """Retrieves all instances of a class by using: <classname>.all()
