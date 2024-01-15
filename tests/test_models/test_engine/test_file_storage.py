@@ -46,6 +46,14 @@ class TestFileStorage(unittest.TestCase):
         self.assertNotEqual(self.storage.all(), {"BaseModel." + test_model.id: test_model,
                                                 "User." + test_user.id: test_user})
 
+    
+def test_new_method_correct_output(self):
+        # Test if the new method adds objects to __objects correctly
+        test_model = BaseModel()
+        test_model.save()
+        self.file_storage.new(test_model)
+        self.assertEqual(self.file_storage._FileStorage__objects, {"BaseModel." + test_model.id: test_model})
+
     def test_save_method(self):
         # Test saving with special characters in the object attributes
         test_user = User()
