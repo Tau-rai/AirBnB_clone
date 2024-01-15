@@ -10,6 +10,9 @@ class TestUser(unittest.TestCase):
         """
         Set up a sample user instance for testing.
         """
+        self.created_at = datetime.datetime(2022, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
+        self.updated_at = datetime.datetime(2022, 1, 2, 12, 0, 0, tzinfo=datetime.timezone.utc)
+
         self.sample_user = User(
             email="test@example.com",
             password="securepassword",
