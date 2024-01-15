@@ -3,13 +3,14 @@ import os
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.user import User
+from models.engine.file_storage import storage
 
 
 class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         self.file_path = "test_file.json"
-        self.storage = FileStorage()
+        self.storage = storage()
         self.storage._FileStorage__file_path = self.file_path
 
     def tearDown(self):
