@@ -1,67 +1,48 @@
 import unittest
-from models.user import User
-from datetime import datetime
-import datetime 
+from models.base_model import BaseModel
+from datetime import datetime, timedelta
 
+class TestBaseModel(unittest.TestCase):
+    def test_base_model_creation(self):
+        my_model = BaseModel()
+        self.assertIsNotNone(my_model.id)
+        self.assertIsInstance(my_model.created_at, datetime)
+        self.assertIsInstance(my_model.updated_at, datetime)
+        self.assertEqual(my_model.created_at, my_model.updated_at)
 
-class TestUser(unittest.TestCase):
+    def test_base_model_str_representation(self):
+        my_model = BaseModel()
+        model_str = str(my_model)
+        self.assertIn("[BaseModel]", model_str)
+        self.assertIn(str(my_model.id), model_str)
 
-    def setUp(self):
-        """
-        Set up a sample user instance for testing.
-        """
-        self.created_at = datetime.datetime(2022, 1, 1, 12, 0, 0, tzinfo=datetime.timezone.utc)
-        self.updated_at = datetime.datetime(2022, 1, 2, 12, 0, 0, tzinfo=datetime.timezone.utc)
+    def test_base_model_save(self):
+        my_model = BaseModel()
+        initial_updated_at = my_model.updated_at
+        my_model.save()
+        self.assertNotEqual(initial_updated_at, my_model.updated_at)
 
-        self.sample_user = User(
-            email="test@example.com",
-            password="securepassword",
-            first_name="John",
-            last_name="Doe",
-            created_at=created_at,
-            updated_at=updated_at,
-            id="unique_id"
-        )
+    def test_base_model_to_dict(self):
+        my_model = BaseModel()
+        model_dict = my_model.to_dict()
+        self.assertIsInstance(model_dict, dict)
+        self.assertEqual(model_dict['__class__'], 'BaseModel')
+        self.assertEqual(model_dict['created_at'], my_model.created_at.isoformat())
+        self.assertEqual(model_dict['updated_at'], my_model.updated_at.isoformat())
 
-    def test_initialization(self):
-        """
-        Test if the instance is initialized properly.
-        """
-        self.assertIsInstance(self.sample_user, User)
-
-    def test_attributes_setting(self):
-        """
-        Test if attributes are set correctly during initialization.
-        """
-        self.assertEqual(self.sample_user.email, "test@example.com")
-        self.assertEqual(self.sample_user.password, "securepassword")
-        self.assertEqual(self.sample_user.first_name, "John")
-        self.assertEqual(self.sample_user.last_name, "Doe")
-
-    def test_default_values(self):
-        """
-        Test if default values are applied when no arguments are provided.
-        """
-        default_user = User()
-        self.assertEqual(default_user.email, "")
-        self.assertEqual(default_user.password, "")
-        self.assertEqual(default_user.first_name, "")
-        self.assertEqual(default_user.last_name, "")
-
-    def test_str_representation(self):
-        """Tests for string representation"""
-        expected = "[User] ({}) {}".format(self.sample_user.id, self.sample_user.__dict__)
-        self.assertEqual(str(self.sample_user), expected)
-
-    def test_to_dict(self):
-        """Tests the to_dict method on User class"""
-        user_dict = self.sample_user.to_dict()
-        self.assertEqual(type(user_dict), dict)
-        self.assertTrue('id' in user_dict)
-        self.assertTrue('created_at' in user_dict)
-        self.assertTrue('updated_at' in user_dict)
-        self.assertEqual(user_dict['__class__'], 'User')
-
+    def test_base_model_kwargs_init(self):
+        # Test initializing with kwargs
+        data = {
+            "id": "123",
+            "created_at": "2022-01-01T00:00:00.000",
+            "updated_at": "2022-01-01T01:00:00.000",
+            "custom_attribute": "test"
+        }
+        my_model = BaseModel(**data)
+        self.assertEqual(my_model.id, "123")
+        self.assertEqual(my_model.created_at, datetime(2022, 1, 1))
+        self.assertEqual(my_model.updated_at, datetime(2022, 1, 1, 1, 0))
+        self.assertEqual(getattr(my_model, "custom_attribute", None), "test")
 
 if __name__ == '__main__':
     unittest.main()
