@@ -16,7 +16,7 @@ class TestUser(unittest.TestCase):
             first_name="John",
             last_name="Doe",
             created_at=created_at,
-            updated_at=updated_at
+            updated_at=updated_at,
             id="unique_id"
         )
 
