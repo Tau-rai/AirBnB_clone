@@ -1,9 +1,9 @@
 import unittest
 import os
-from models.engine.file_storage import FileStorage
+from models.engine.file_storage import storage
 from models.base_model import BaseModel
 from models.user import User
-from . import storage
+
 
 
 class TestFileStorage(unittest.TestCase):
