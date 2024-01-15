@@ -104,6 +104,30 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(test_model)
 
         self.assertEqual(self.storage.all(), expected_output)
+        
+    def test_reload_method_correct_output(self):
+        # Test if the reload method returns the correct output after reloading from a valid file
+        test_user = User()
+        test_user.save()
+
+        test_model = BaseModel()
+        test_model.save()
+
+        self.storage.new(test_user)
+        self.storage.new(test_model)
+        self.storage.save()
+
+        new_storage = FileStorage()
+        new_storage._FileStorage__file_path = self.file_path
+        new_storage.reload()
+
+        expected_output = {
+            "User." + test_user.id: test_user,
+            "BaseModel." + test_model.id: test_model
+        }
+
+        self.assertEqual(new_storage.all(), expected_output)
+
 
 if __name__ == '__main__':
     unittest.main()
