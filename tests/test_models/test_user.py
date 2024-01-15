@@ -14,8 +14,9 @@ class TestUser(unittest.TestCase):
             email="test@example.com",
             password="securepassword",
             first_name="John",
-            last_name="Doe",created_at=datetime.datetime.strptime("2022-01-01 12:00:00", "%Y-%m-%d %H:%M:%S"),
-            updated_at=datetime.datetime.strptime("2022-01-02 12:00:00", "%Y-%m-%d %H:%M:%S"),
+            last_name="Doe",
+            created_at=datetime.datetime.strptime("2022-01-01 12:00:00", "%Y-%m-%d %H:%M:%S").replace(tzinfo=datetime.timezone.utc),
+            updated_at=datetime.datetime.strptime("2022-01-02 12:00:00", "%Y-%m-%d %H:%M:%S").replace(tzinfo=datetime.timezone.utc),
             id="unique_id"
         )
 
