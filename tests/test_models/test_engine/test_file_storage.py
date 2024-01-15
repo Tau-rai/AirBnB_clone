@@ -52,7 +52,7 @@ class TestFileStorage(unittest.TestCase):
         test_model = BaseModel()
         test_model.save()
         self.storage.new(test_model)
-        self.assertEqual(self.file_storage._FileStorage__objects, {"BaseModel." + test_model.id: test_model})
+        self.assertEqual(self.storage._FileStorage__objects, {"BaseModel." + test_model.id: test_model})
     
     def test_save_method(self):
         # Test saving with special characters in the object attributes
