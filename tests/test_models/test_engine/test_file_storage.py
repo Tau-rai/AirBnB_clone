@@ -1,16 +1,15 @@
 import unittest
 import os
-from models.engine.file_storage import storage
+from models.engine.file_storage import FileStorage  # Fix import statement
 from models.base_model import BaseModel
 from models.user import User
-
 
 
 class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         self.file_path = "test_file.json"
-        self.storage = storage()
+        self.storage = FileStorage()  # Use FileStorage instead of storage
         self.storage._FileStorage__file_path = self.file_path
 
     def tearDown(self):
@@ -45,16 +44,15 @@ class TestFileStorage(unittest.TestCase):
         test_user = User()
         test_user.save()
         self.assertNotEqual(self.storage.all(), {"BaseModel." + test_model.id: test_model,
-                                                "User." + test_user.id: test_user})
+                                                 "User." + test_user.id: test_user})
 
-    
     def test_new_method_correct_output(self):
         # Test if the new method adds objects to __objects correctly
         test_model = BaseModel()
         test_model.save()
         self.storage.new(test_model)
-        self.assertEqual(self.storage._storage__objects, {"BaseModel." + test_model.id: test_model})
-    
+        self.assertEqual(self.storage._FileStorage__objects, {"BaseModel." + test_model.id: test_model})
+
     def test_save_method(self):
         # Test saving with special characters in the object attributes
         test_user = User()
@@ -63,7 +61,7 @@ class TestFileStorage(unittest.TestCase):
 
         self.storage.save()
 
-        new_storage = storage()
+        new_storage = FileStorage()  # Use FileStorage instead of storage
         new_storage._FileStorage__file_path = self.file_path
         new_storage.reload()
 
@@ -72,7 +70,7 @@ class TestFileStorage(unittest.TestCase):
     def test_reload_method(self):
         # Test reloading with a non-existent file
         non_existent_file_path = "non_existent_file.json"
-        new_storage = storage()
+        new_storage = FileStorage()  # Use FileStorage instead of storage
         new_storage._FileStorage__file_path = non_existent_file_path
         new_storage.reload()
 
