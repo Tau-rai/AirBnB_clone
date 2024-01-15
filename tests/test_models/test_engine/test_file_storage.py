@@ -51,7 +51,7 @@ class TestFileStorage(unittest.TestCase):
         # Test if the new method adds objects to __objects correctly
         test_model = BaseModel()
         test_model.save()
-        self.file_storage.new(test_model)
+        self.storage.new(test_model)
         self.assertEqual(self.file_storage._FileStorage__objects, {"BaseModel." + test_model.id: test_model})
     
     def test_save_method(self):
