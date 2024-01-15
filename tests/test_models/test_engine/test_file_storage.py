@@ -142,10 +142,13 @@ class TestFileStorage(unittest.TestCase):
         new_storage._FileStorage__file_path = self.file_path
         new_storage.reload()
 
-        # Check if the saved User object is present in the storage
-        self.assertIn("User." + test_user.id, new_storage.all())
-        saved_user = new_storage.all()["User." + test_user.id]
-        self.assertEqual(saved_user.email, "user@example.com")
+        user_key = "User." + test_user.id
+        self.assertTrue(hasattr(new_storage.all(), user_key))
+
+        # Access the saved user object and check its email attribute
+        if hasattr(new_storage.all(), user_key):
+            saved_user = new_storage.all()["User." + test_user.id]
+            self.assertEqual(saved_user.email, "user@example.com")
 
 
 if __name__ == '__main__':
