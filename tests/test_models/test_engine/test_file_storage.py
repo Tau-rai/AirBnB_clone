@@ -53,7 +53,7 @@ class TestFileStorage(unittest.TestCase):
         test_model = BaseModel()
         test_model.save()
         self.storage.new(test_model)
-        self.assertEqual(self.storage._FileStorage__objects, {"BaseModel." + test_model.id: test_model})
+        self.assertEqual(self.storage._storage__objects, {"BaseModel." + test_model.id: test_model})
     
     def test_save_method(self):
         # Test saving with special characters in the object attributes
@@ -63,7 +63,7 @@ class TestFileStorage(unittest.TestCase):
 
         self.storage.save()
 
-        new_storage = FileStorage()
+        new_storage = storage()
         new_storage._FileStorage__file_path = self.file_path
         new_storage.reload()
 
@@ -72,7 +72,7 @@ class TestFileStorage(unittest.TestCase):
     def test_reload_method(self):
         # Test reloading with a non-existent file
         non_existent_file_path = "non_existent_file.json"
-        new_storage = FileStorage()
+        new_storage = storage()
         new_storage._FileStorage__file_path = non_existent_file_path
         new_storage.reload()
 
