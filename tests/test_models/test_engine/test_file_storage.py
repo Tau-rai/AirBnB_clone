@@ -47,7 +47,7 @@ class TestFileStorage(unittest.TestCase):
                                                 "User." + test_user.id: test_user})
 
     
-def test_new_method_correct_output(self):
+    def test_new_method_correct_output(self):
         # Test if the new method adds objects to __objects correctly
         test_model = BaseModel()
         test_model.save()
