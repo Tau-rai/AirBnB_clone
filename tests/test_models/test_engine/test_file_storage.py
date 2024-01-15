@@ -86,6 +86,24 @@ class TestFileStorage(unittest.TestCase):
     def test_file_storage_attributes_correct_output(self):
         # Test if __filepath and __objects are set correctly
         self.assertFileStorageAttributes("test_file.json", {})
+        
+    def test_all_method_correct_output(self):
+        # Test if the all method returns the correct output
+        test_user = User()
+        test_user.save()
+
+        test_model = BaseModel()
+        test_model.save()
+
+        expected_output = {
+            "User." + test_user.id: test_user,
+            "BaseModel." + test_model.id: test_model
+        }
+
+        self.storage.new(test_user)
+        self.storage.new(test_model)
+
+        self.assertEqual(self.storage.all(), expected_output)
 
 if __name__ == '__main__':
     unittest.main()
