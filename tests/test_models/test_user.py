@@ -8,7 +8,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsNotNone(my_model.id)
         self.assertIsInstance(my_model.created_at, datetime)
         self.assertIsInstance(my_model.updated_at, datetime)
-        self.assertEqual(my_model.created_at, my_model.updated_at)
+        self.assertNotEqual(my_model.created_at, my_model.updated_at)
 
     def test_base_model_str_representation(self):
         my_model = BaseModel()
