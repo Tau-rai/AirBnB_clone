@@ -127,6 +127,25 @@ class TestFileStorage(unittest.TestCase):
         }
 
         self.assertNotEqual(new_storage.all(), expected_output)
+        
+    def test_save_method_user_object(self):
+        # Test if a User object created by the user is saved in the storage
+        test_user = User()
+        test_user.email = "user@example.com"
+        test_user.save()
+        
+        # Save the storage to persist the changes
+        self.storage.save()
+
+        # Create a new storage instance and reload from the file
+        new_storage = FileStorage()
+        new_storage._FileStorage__file_path = self.file_path
+        new_storage.reload()
+
+        # Check if the saved User object is present in the storage
+        self.assertIn("User." + test_user.id, new_storage.all())
+        saved_user = new_storage.all()["User." + test_user.id]
+        self.assertEqual(saved_user.email, "user@example.com")
 
 
 if __name__ == '__main__':
