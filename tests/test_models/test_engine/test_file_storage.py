@@ -143,7 +143,7 @@ class TestFileStorage(unittest.TestCase):
         new_storage.reload()
 
         user_key = "User." + test_user.id
-        self.assertFalse(hasattr(new_storage.all(), user_key))
+        self.assertTrue(hasattr(new_storage.all(), user_key))
 
         # Access the saved user object and check its email attribute
         if hasattr(new_storage.all(), user_key):
