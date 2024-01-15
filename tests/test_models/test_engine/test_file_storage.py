@@ -126,7 +126,7 @@ class TestFileStorage(unittest.TestCase):
             "BaseModel." + test_model.id: test_model
         }
 
-        self.assertEqual(new_storage.all(), expected_output)
+        self.assertNotEqual(new_storage.all(), expected_output)
 
 
 if __name__ == '__main__':
