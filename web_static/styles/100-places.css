@@ -1,0 +1,123 @@
+.places {
+    margin-top: 30px;
+}
+
+.places h1 {
+    font-size: 30px;
+}
+
+.places_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.places_list article {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+}
+article h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 30px;
+}
+.price_by_night {
+    color: #FF5A5F;
+    border: 4px solid #FF5A5F;
+    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.information {
+    height: 80px;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
+    display: flex;
+    align-items: center;
+}
+.max_guest::before {
+    content: url("../images/icon_guests.png");
+}
+.number_rooms::before {
+    content: url("../images/icon_bed.png");
+}
+.number_bathrooms::before {
+    content: url("../images/icon_bath.png");
+}
+.max_guest,
+.number_rooms,
+.number_bathrooms {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+.user {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.places_list article .amenities,
+.places_list article .reviews {
+    margin-top: 40px;
+}
+.places_list article .amenities h2,
+.places_list article .reviews h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+.places_list article .reviews h2 {
+    text-align: left;
+}
+.places_list article .reviews h3 {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.places_list article .reviews p {
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.places_list article .amenities li,
+.places_list article .reviews li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.places_list article .amenities ul,
+.places_list article .reviews ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.places_list article .amenities li {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.places_list .pet::before {
+    content: url("../images/icon_pets.png");
+}
+.places_list .tv::before {
+    content: url("../images/icon_tv.png");
+}
+.places_list .wifi::before {
+    content: url("../images/icon_wifi.png");
+}

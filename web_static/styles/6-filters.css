@@ -1,0 +1,88 @@
+.filters {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.search-button {
+    position: relative;
+    font-size: 18px;
+    background-color: #FF5A5F;
+    color: #FFFFFF;
+    height: 48px;
+    width: 20%;
+    border: none;
+    border-radius: 4px;
+    margin-right: 30px;
+    cursor: pointer;
+    opacity: 1;
+}
+.search-button:hover {
+    opacity: 0.9;
+}
+
+.locations {
+    position: relative;
+    height: 100%;
+    width: 25%;
+    border-right: 1px solid #DDDDDD;
+    padding: 0 20px;
+}
+.amenities {
+    position: relative;
+    height: 100%;
+    width: 25%;
+    padding: 0 20px;
+}
+
+.locations h3,
+.amenities h3 {
+    font-weight: 600;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.locations h4,
+.amenities h4 {
+    margin-top: 0;
+}
+
+.popover {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    overflow-x: auto;
+    list-style-type: none;
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.locations:hover .popover,
+.amenities:hover .popover {
+    display: block;
+}
+
+.locations h2 {
+    font-size: 16px;
+}
+
+.locations ul,
+.locations li {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+}
+.amenities ul,
+.amenities li {
+    margin: 0;
+    padding-left: 10px;
+}

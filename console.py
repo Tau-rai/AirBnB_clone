@@ -5,6 +5,7 @@ This module contains the entry point of the command interpreter
 
 
 import cmd
+import re
 import shlex
 from models.base_model import BaseModel
 from models import storage
@@ -189,6 +190,21 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                 else:
                     del storage.all()[key]
+            elif "update(" in command and ")" in command:
+                # extract id, attr_name and attr_value
+                match = re.search(r'update\(([^,]+),([^,]+),([^)]+)\)', command)
+                
+                if match:
+                    id, attr_name, attr_value = [param.strip() for param in match.groups()]
+
+                    key = class_name + "." + id
+                    if key not in storage.all():
+                        print("** no instance found **")
+                    else:
+                        instance = storage.all()[key]
+                        setattr(instance, attr_name, attr_value)
+                        instance.save()
+                        storage.save()
 
 
 if __name__ == '__main__':
